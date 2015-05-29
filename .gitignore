@@ -3,4 +3,4 @@
 /.classpath
 /.project
 
-/src/main/webapp/WEB-INF/dispatcher-context.xml
+/src/main/resources/config/dao-context.xml

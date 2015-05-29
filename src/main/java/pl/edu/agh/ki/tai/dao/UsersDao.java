@@ -1,9 +1,12 @@
 package pl.edu.agh.ki.tai.dao;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +15,9 @@ import pl.edu.agh.ki.tai.model.User;
 @Repository("usersDao")
 @Transactional
 public class UsersDao {
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	@Qualifier("sessionFactory")
@@ -23,7 +29,14 @@ public class UsersDao {
 	
 	@Transactional
 	public void create(User user){
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		session().save(user);
 	}
 
+	public boolean exists(String username){
+		Criteria criteria = session().createCriteria(User.class);
+		criteria.add(Restrictions.eq("username", username));
+		User user = (User) criteria.uniqueResult();
+		return (user != null) ? true : false;
+	}
 }
