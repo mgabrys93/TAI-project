@@ -21,6 +21,9 @@ public class LoginController {
 
 	@Autowired
 	private UsersService usersService;
+	public void setUSersService(UsersService usersService){
+		this.usersService = usersService;
+	}
 
 	@RequestMapping("/home")
 	public String showHomepage(Model model, Principal principal){
