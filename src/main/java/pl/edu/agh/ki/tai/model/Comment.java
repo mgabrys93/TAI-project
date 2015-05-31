@@ -26,7 +26,7 @@ public class Comment {
 	@JoinColumn(name = "event_id")
 	private Event event;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "username")
 	private User author;
 	
@@ -36,6 +36,8 @@ public class Comment {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "comment", cascade = {CascadeType.PERSIST})
 	private Set<Comment> comments;
+	
+	private String text;
 	
 	public long getCommentId() {
 		return commentId;
@@ -75,6 +77,14 @@ public class Comment {
 
 	public void setComments(Set<Comment> comments) {
 		this.comments = comments;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
 	}
 	
 }

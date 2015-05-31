@@ -21,65 +21,48 @@
 	</div>
 	
 	<div class="content">
-		<h2>New Event</h2>
+		<h2>New Comment</h2>
 		
 		<sf:form id="details" method="post"
-			commandName="event">
+			commandName="comment">
 			
 			<table class="formtable">
 				<tr>
-					<td class="label">Event name:</td>
+					<td class="label">Comment text:</td>
 					<td>
-						<sf:input class="control" path="eventname"
-							name="eventname" type="text"/>
+						<sf:input class="control" path="text"
+							name="text" type="text"/>
 						<div class="error">
-							${eventname_message}
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td class="label">Event description:</td>
-					<td>
-						<sf:input class="control" path="description"
-							name="description" type="text"/>
-						<div class="error">
-							${description_message}
+							${comment_message}
 						</div>
 					</td>
 				</tr>
 				<tr>
 					<td class="label"/>
 					<td>
-						<input class="control" value="Create event." type="submit">
+						<input class="control" value="Create comment" type="submit">
 					</td>
 				</tr>
 			</table>
 			
 		</sf:form>
 		
-		<c:forEach var="eventItem" items="${eventList}" varStatus="loop">
+		<c:forEach var="commentItem" items="${commentList}" varStatus="loop">
 			<div>
 				<table>
 					<tr>
 						-----------------------------------------------
 					</tr>
 					<tr>
-						<td class="label">Event author:</td>
+						<td class="label">Comment author:</td>
 						<td>
-							${eventItem.author.username}
+							${commentItem.author.username}
 						</td>
 					</tr>
 					<tr>
-						<td class="label">Event name:</td>
+						<td class="label">Comment:</td>
 						<td>
-							<c:url value="/event/${eventItem.eventId}/comment" var="eventPath"/>
-							<a href="${eventPath}">${eventItem.eventname}</a>
-						</td>
-					</tr>
-					<tr>
-						<td class="label">Event description:</td>
-						<td>
-							${eventItem.description}
+							${commentItem.text}
 						</td>
 					</tr>
 				</table>

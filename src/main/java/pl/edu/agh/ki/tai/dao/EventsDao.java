@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -33,5 +34,11 @@ public class EventsDao {
 	public List<Event> getAllEvents(){
 		Criteria criteria = session().createCriteria(Event.class);
 		return criteria.list();
+	}
+	
+	public Event getEventById(Long id){
+		Criteria criteria = session().createCriteria(Event.class);
+		criteria.add(Restrictions.eq("eventId", id));
+		return (Event) criteria.uniqueResult();
 	}
 }

@@ -38,7 +38,7 @@ public class EventController {
 	}
 	
 	@RequestMapping(value="/group/{groupname}", method=RequestMethod.POST)
-	public String createNewEvent(Event event, @PathVariable("groupname") String groupname, HttpServletRequest request, Principal principal){
+	public String createNewEvent(Event event, @PathVariable("groupname") String groupname, Principal principal){
 		
 		String username = "";
 		if(principal != null){

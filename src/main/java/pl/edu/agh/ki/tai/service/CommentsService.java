@@ -1,5 +1,7 @@
 package pl.edu.agh.ki.tai.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,5 +16,9 @@ public class CommentsService {
 
 	public void create(Comment comment){
 		commentsDao.create(comment);
+	}
+	
+	public List<Comment> getAllComments(){
+		return commentsDao.getAllComments();
 	}
 }

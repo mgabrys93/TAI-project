@@ -21,4 +21,8 @@ public class EventsService {
 	public List<Event> getAllEvents(){
 		return eventsDao.getAllEvents();
 	}
+	
+	public Event getEventById(Long id){
+		return eventsDao.getEventById(id);
+	}
 }

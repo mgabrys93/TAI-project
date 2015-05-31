@@ -1,5 +1,8 @@
 package pl.edu.agh.ki.tai.dao;
 
+import java.util.List;
+
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +27,11 @@ public class CommentsDao {
 	@Transactional
 	public void create(Comment comment) {
 		session().save(comment);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Comment> getAllComments(){
+		Criteria criteria = session().createCriteria(Comment.class);
+		return criteria.list();
 	}
 }
