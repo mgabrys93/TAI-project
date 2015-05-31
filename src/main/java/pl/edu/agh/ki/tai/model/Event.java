@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Table(name = "events")
 public class Event {
@@ -25,7 +27,7 @@ public class Event {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "event")
 	private Set<Comment> commnents;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "username")
 	private User author;
 	
@@ -33,6 +35,10 @@ public class Event {
 	@JoinColumn(name = "groupname")
 	private Group group;
 
+	private String description;
+
+	private String eventname;
+	
 	public long getEventId() {
 		return eventId;
 	}
@@ -63,6 +69,22 @@ public class Event {
 
 	public void setGroup(Group group) {
 		this.group = group;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getEventname() {
+		return eventname;
+	}
+
+	public void setEventname(String eventname) {
+		this.eventname = eventname;
 	}
 	
 }

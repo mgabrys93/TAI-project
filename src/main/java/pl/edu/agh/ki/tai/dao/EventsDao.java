@@ -1,5 +1,8 @@
 package pl.edu.agh.ki.tai.dao;
 
+import java.util.List;
+
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +27,11 @@ public class EventsDao {
 	@Transactional
 	public void create(Event event){
 		session().save(event);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Event> getAllEvents(){
+		Criteria criteria = session().createCriteria(Event.class);
+		return criteria.list();
 	}
 }

@@ -24,7 +24,6 @@
 		<h1>Select group to join</h1>
 		
 		<sf:form id="details" method="post"
-			
 			commandName="group">
 			<tr>
 				<td class="label">Select group:</td>
@@ -33,7 +32,7 @@
 							
 					</sf:select>
 					<div class="error">
-						<td>${message}</td>
+						${message}
 						<sf:errors path="groupname"></sf:errors>
 					</div>
 				</td>
