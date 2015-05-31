@@ -15,4 +15,8 @@ public class GroupsService {
 	public void create(Group group){
 		groupsDao.create(group);
 	}
+	
+	public boolean exists(String groupname){
+		return groupsDao.exists(groupname);
+	}
 }

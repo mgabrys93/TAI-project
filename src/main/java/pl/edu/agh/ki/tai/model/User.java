@@ -13,7 +13,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -53,9 +52,9 @@ public class User {
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_group", joinColumns = {
-			@JoinColumn(name = "user_id", nullable = false)},
+			@JoinColumn(name = "username", nullable = false)},
 			inverseJoinColumns = {
-				@JoinColumn(name = "group_id", nullable = false)
+				@JoinColumn(name = "groupname", nullable = false)
 	})
 	private Set<Group> groups;
 

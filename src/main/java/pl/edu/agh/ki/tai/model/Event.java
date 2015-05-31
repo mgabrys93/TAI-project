@@ -26,11 +26,11 @@ public class Event {
 	private Set<Comment> commnents;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "username")
 	private User author;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "group_id")
+	@JoinColumn(name = "groupname")
 	private Group group;
 
 	public long getEventId() {
