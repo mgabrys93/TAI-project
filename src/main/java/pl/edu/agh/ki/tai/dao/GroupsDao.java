@@ -1,5 +1,7 @@
 package pl.edu.agh.ki.tai.dao;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,7 +12,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import pl.edu.agh.ki.tai.model.Group;
-import pl.edu.agh.ki.tai.model.User;
 
 @Repository("groupsDao")
 @Transactional
@@ -36,4 +37,15 @@ public class GroupsDao {
 		return (group != null) ? true : false;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Group> getAllGroup(){
+		Criteria criteria = session().createCriteria(Group.class);
+		return criteria.list();
+	}
+	
+	public Group getGroupByName(String groupname){
+		Criteria criteria = session().createCriteria(Group.class);
+		criteria.add(Restrictions.eq("groupname", groupname));
+		return (Group) criteria.uniqueResult();
+	}
 }

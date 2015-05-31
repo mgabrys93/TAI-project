@@ -49,9 +49,18 @@ public class UsersDao {
 		return (User) criteria.uniqueResult();
 	}
 	
-	public void updateGroups(String username, Set<Group> groups){
+	public void updateGroups(String username, Group group){
 		User user = getUserByName(username);
-		user.getGroups().addAll(groups);
+		user.getGroups().add(group);
 		session().update(user);
+	}
+	
+	public boolean containsGroup(String username, String groupname){
+		Criteria criteria = session().createCriteria(User.class);
+		criteria.add(Restrictions.eq("username", username));
+		criteria.createAlias("groups", "g");
+		criteria.add(Restrictions.eq("g.groupname", groupname));
+		User user = (User) criteria.uniqueResult();
+		return (user != null) ? true : false;
 	}
 }

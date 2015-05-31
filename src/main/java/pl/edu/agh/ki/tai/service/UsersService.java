@@ -27,7 +27,11 @@ public class UsersService {
 		return usersDao.getUserByName(username);
 	}
 
-	public void updateGroups(String username, Set<Group> groups){
-		usersDao.updateGroups(username, groups);
+	public void updateGroups(String username, Group group){
+		usersDao.updateGroups(username, group);
+	}
+	
+	public boolean containsGroup(String username, String groupname){
+		return usersDao.containsGroup(username, groupname);
 	}
 }

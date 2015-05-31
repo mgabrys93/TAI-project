@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pl.edu.agh.ki.tai.dao.FormValidationGroup;
 import pl.edu.agh.ki.tai.model.Group;
+import pl.edu.agh.ki.tai.model.User;
 import pl.edu.agh.ki.tai.service.GroupsService;
 import pl.edu.agh.ki.tai.service.UsersService;
 
@@ -49,17 +51,46 @@ public class GroupController {
 			username = principal.getName();
 		}
 		
-		Set<Group> groups = new HashSet<Group>();
-		groups.add(group);
-		
 		if(groupsService.exists(group.getGroupname())){
 			result.rejectValue("groupname", "DuplicateKey.group.groupname");
 			return "newgroup";
 		}
 		
 		groupsService.create(group);
-		usersService.updateGroups(username, groups);
+		usersService.updateGroups(username, group);
 		
 		return "groupcreated";
+	}
+	
+	@RequestMapping(value="/jointogroup", method=RequestMethod.GET)
+	public String showJoinToGroup(Model model) {
+		model.addAttribute("group", new Group());
+		model.addAttribute("groups", groupsService.getAllGroupNames());
+		return "jointogroup";
+	}
+	
+	@RequestMapping(value="/jointogroup", method=RequestMethod.POST)
+	public String joinToGroup(@Valid Group group, BindingResult result,
+			Principal principal, RedirectAttributes redirectAttributes){
+		if(result.hasErrors()){ 
+			return "jointogroup";
+		}
+		
+		String username = "";
+		if(principal != null){
+			username = principal.getName();
+		}
+		System.out.println(username);
+		if(usersService.containsGroup(username, group.getGroupname())){
+			result.rejectValue("groupname", "Duplicate.user.groups");
+			redirectAttributes.addFlashAttribute("message", "you belong to this group");
+			return "redirect:jointogroup";
+		}
+		
+		usersService.updateGroups(username, group);
+		redirectAttributes.addFlashAttribute("message", "joined successfully");
+		
+		return "redirect:jointogroup";
+		
 	}
 }
