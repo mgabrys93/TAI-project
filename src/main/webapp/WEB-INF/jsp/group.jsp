@@ -13,12 +13,14 @@
 <body>
 
 	<div class="header">
-		<a class="title" href="<c:url value='/home'/>">TAI</a>
+		<a class="title" href="<c:url value='/'/>">TAI</a>
 		
 		<sec:authorize access="isAuthenticated()"> 
 			<a class="mygroups" href="<c:url value="/groups"/>">My groups</a>
 		</sec:authorize>
-		
+		<sec:authorize access="isAuthenticated()"> 
+			<a class="mygroups" href="<c:url value="/newgroup"/>">Create group</a>
+		</sec:authorize>
 		<sec:authorize access="isAuthenticated()"> 
 			<a class="mygroups" href="<c:url value="/jointogroup"/>">Join to group</a>
 		</sec:authorize>
