@@ -1,25 +1,20 @@
 package pl.edu.agh.ki.tai.controller;
 
 import java.security.Principal;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.authentication.UserServiceBeanDefinitionParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import pl.edu.agh.ki.tai.dao.FormValidationGroup;
 import pl.edu.agh.ki.tai.model.Group;
-import pl.edu.agh.ki.tai.model.User;
 import pl.edu.agh.ki.tai.service.GroupsService;
 import pl.edu.agh.ki.tai.service.UsersService;
 
@@ -92,5 +87,17 @@ public class GroupController {
 		
 		return "redirect:jointogroup";
 		
+	}
+	
+	@RequestMapping(value="/groups")
+	public String showMyGroups(Model model, Principal principal){
+		
+		String username = "";
+		if(principal != null){
+			username = principal.getName();
+		}
+		model.addAttribute("groupList", usersService.getGroupsByUsername(username));
+		
+		return "grouplist";
 	}
 }

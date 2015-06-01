@@ -1,5 +1,7 @@
 package pl.edu.agh.ki.tai.dao;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Criteria;
@@ -12,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import pl.edu.agh.ki.tai.model.Event;
 import pl.edu.agh.ki.tai.model.Group;
 import pl.edu.agh.ki.tai.model.User;
 
@@ -62,5 +65,27 @@ public class UsersDao {
 		criteria.add(Restrictions.eq("g.groupname", groupname));
 		User user = (User) criteria.uniqueResult();
 		return (user != null) ? true : false;
+	}
+	
+	public List<Group> getGroupsByUsername(String username) {
+		Criteria criteria = session().createCriteria(User.class);
+		criteria.add(Restrictions.eq("username", username));
+		User user = (User) criteria.uniqueResult();
+		List<Group> list = new ArrayList<Group>();
+		list.addAll(user.getGroups());
+		return list;
+	}
+
+	public List<Event> getEvents(String username, String groupname) {
+		Criteria criteria = session().createCriteria(User.class);
+		criteria.add(Restrictions.eq("username", username));
+		User user = (User) criteria.uniqueResult();
+		List<Event> list = new ArrayList<Event>();
+		for(Event e : user.getEvents()){
+			if(e.getGroup().getGroupname().equals(groupname)){
+				list.add(e);
+			}
+		}
+		return list;
 	}
 }

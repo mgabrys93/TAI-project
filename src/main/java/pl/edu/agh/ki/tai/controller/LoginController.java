@@ -22,7 +22,7 @@ public class LoginController {
 	@Autowired
 	private UsersService usersService;
 
-	@RequestMapping("/home")
+	@RequestMapping("/")
 	public String showHomepage(Model model, Principal principal){
 		String username = "";
 		if(principal != null){

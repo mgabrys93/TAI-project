@@ -41,7 +41,7 @@ public class User {
 	@Email(groups={FormValidationGroup.class})
 	private String email;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "author")
 	private Set<Event> events;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
@@ -50,7 +50,7 @@ public class User {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<UserRole> authorities = new HashSet<UserRole>();
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_group", joinColumns = {
 			@JoinColumn(name = "username", nullable = false)},
 			inverseJoinColumns = {

@@ -31,7 +31,7 @@ public class CommentController {
 	@RequestMapping(value="/event/{eventId}/comment")
 	public String showComment(Model model, @PathVariable("eventId") String eventId){
 		model.addAttribute("event", eventsService.getEventById(Long.valueOf(eventId)));
-		model.addAttribute("commentList", commentsService.getAllComments());
+		model.addAttribute("commentList", commentsService.getAllComments(Long.valueOf(eventId)));
 		model.addAttribute("comment", new Comment());
 		return "event";
 	}

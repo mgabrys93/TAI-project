@@ -41,4 +41,5 @@ public class EventsDao {
 		criteria.add(Restrictions.eq("eventId", id));
 		return (Event) criteria.uniqueResult();
 	}
+
 }

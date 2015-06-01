@@ -1,11 +1,12 @@
 package pl.edu.agh.ki.tai.service;
 
-import java.util.Set;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pl.edu.agh.ki.tai.dao.UsersDao;
+import pl.edu.agh.ki.tai.model.Event;
 import pl.edu.agh.ki.tai.model.Group;
 import pl.edu.agh.ki.tai.model.User;
 
@@ -33,5 +34,13 @@ public class UsersService {
 	
 	public boolean containsGroup(String username, String groupname){
 		return usersDao.containsGroup(username, groupname);
+	}
+	
+	public List<Group> getGroupsByUsername(String username){
+		return usersDao.getGroupsByUsername(username);
+	}
+
+	public List<Event> getEvents(String username, String groupname) {
+		return usersDao.getEvents(username, groupname);
 	}
 }

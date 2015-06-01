@@ -15,6 +15,14 @@
 	<div class="header">
 		<a class="title" href="<c:url value='/home'/>">TAI</a>
 		
+		<sec:authorize access="isAuthenticated()"> 
+			<a class="mygroups" href="<c:url value="/groups"/>">My groups</a>
+		</sec:authorize>
+		
+		<sec:authorize access="isAuthenticated()"> 
+			<a class="mygroups" href="<c:url value="/jointogroup"/>">Join to group</a>
+		</sec:authorize>
+		
 		<sec:authorize access="isAuthenticated()">
 			<a class="login" href="<c:url value='/j_spring_security_logout'/>">Log out</a>
 		</sec:authorize>

@@ -31,9 +31,15 @@ public class EventController {
 	private GroupsService groupsService;
 	
 	@RequestMapping(value="/group/{groupname}")
-	public String showNewEvent(Model model, @PathVariable("groupname") String groupname){
+	public String showNewEvent(Model model, @PathVariable("groupname") String groupname, Principal principal){
+		
+		String username = "";
+		if(principal != null){
+			username = principal.getName();
+		}
+		
 		model.addAttribute("event", new Event());
-		model.addAttribute("eventList", eventsService.getAllEvents());
+		model.addAttribute("eventList", usersService.getEvents(username, groupname));
 		return "group";
 	}
 	

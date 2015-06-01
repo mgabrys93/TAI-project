@@ -5,15 +5,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link href="${pageContext.request.contextPath}/static/css/main.css"
-       rel="stylesheet" type="text/css" />
-
 <title>Insert title here</title>
 </head>
 <body>
 
 	<div class="header">
 		<a class="title" href="<c:url value="/home"/>">TAI</a>
+		
+		<sec:authorize access="isAuthenticated()"> 
+			<a class="mygroups" href="<c:url value="/groups"/>">My groups</a>
+		</sec:authorize>
+		
+		<sec:authorize access="isAuthenticated()"> 
+			<a class="mygroups" href="<c:url value="/jointogroup"/>">Join to group</a>
+		</sec:authorize>
 		
 		<sec:authorize access="!isAuthenticated()">
 			<a class="login" href="<c:url value="/login"/>">Log in</a> 

@@ -18,7 +18,8 @@ public class CommentsService {
 		commentsDao.create(comment);
 	}
 	
-	public List<Comment> getAllComments(){
-		return commentsDao.getAllComments();
+	public List<Comment> getAllComments(Long eventId){
+		return commentsDao.getAllComments(eventId);
 	}
+	
 }
