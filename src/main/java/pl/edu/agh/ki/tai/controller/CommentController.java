@@ -19,6 +19,8 @@ import pl.edu.agh.ki.tai.service.UsersService;
 @Controller
 public class CommentController {
 
+	
+
 	@Autowired
 	private EventsService eventsService;
 	
@@ -27,6 +29,18 @@ public class CommentController {
 	
 	@Autowired
 	private CommentsService commentsService;
+	
+	public void setEventsService(EventsService eventsService) {
+		this.eventsService = eventsService;
+	}
+
+	public void setUsersService(UsersService usersService) {
+		this.usersService = usersService;
+	}
+
+	public void setCommentsService(CommentsService commentsService) {
+		this.commentsService = commentsService;
+	}
 	
 	@RequestMapping(value="/event/{eventId}/comment")
 	public String showComment(Model model, @PathVariable("eventId") String eventId){
