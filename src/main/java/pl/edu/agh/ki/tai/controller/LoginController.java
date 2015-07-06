@@ -73,4 +73,9 @@ public class LoginController {
 		usersService.create(user);
 		return "accountcreated";
 	}
+
+	public void setUSersService(UsersService us) {
+		this.usersService = us;
+		
+	}
 }
