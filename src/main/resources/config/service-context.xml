@@ -7,4 +7,11 @@
     <!--Scans for all classes in service package -->
 	<context:annotation-config></context:annotation-config>
 	<context:component-scan base-package="pl.edu.agh.ki.tai.service"/>
+	
+	<bean id="twitterTemplate" class="org.springframework.social.twitter.api.impl.TwitterTemplate">
+		<constructor-arg value="CqESqMg3DqmP6aK1uUT1nZcc9"/>
+		<constructor-arg value="25przpRbRPine4LeZtIiSyUECU4EOZX0gGztcCgeoSvum3B7AG"/>
+		<constructor-arg value="3352287513-IKxU2yLn6H19PVXiqZxIJWX9iL7WHRUkmM8Ktqq"/>
+		<constructor-arg value="3pJ1myODgbSKIvQEloSUOvWj1hKgLWnxv9yCjNYoeibqy"/>
+	</bean>
 </beans>
