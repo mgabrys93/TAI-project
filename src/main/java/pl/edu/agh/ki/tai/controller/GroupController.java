@@ -27,6 +27,14 @@ public class GroupController {
 	@Autowired
 	private GroupsService groupsService;
 	
+	public void setGrupService(GroupsService gs){
+		this.groupsService = gs;
+	}
+	
+	public void setUSersService(UsersService us){
+		this.usersService = us;
+	}
+	
 	@RequestMapping(value="/newgroup")
 	public String showNewGroup(Model model){
 		model.addAttribute("group", new Group());

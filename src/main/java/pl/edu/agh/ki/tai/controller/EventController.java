@@ -23,12 +23,24 @@ public class EventController {
 
 	@Autowired
 	private EventsService eventsService;
-	
+
 	@Autowired
 	private UsersService usersService;
 	
 	@Autowired
 	private GroupsService groupsService;
+	
+	public void setEventsService(EventsService eventsService) {
+		this.eventsService = eventsService;
+	}
+
+	public void setUsersService(UsersService usersService) {
+		this.usersService = usersService;
+	}
+
+	public void setGroupsService(GroupsService groupsService) {
+		this.groupsService = groupsService;
+	}
 	
 	@RequestMapping(value="/group/{groupname}")
 	public String showNewEvent(Model model, @PathVariable("groupname") String groupname, Principal principal){
