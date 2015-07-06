@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.ui.ExtendedModelMap;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import pl.edu.agh.ki.tai.controller.EventController;
@@ -22,19 +23,28 @@ import pl.edu.agh.ki.tai.service.UsersService;
 
 public class EventControllerTest {
 	ExtendedModelMap model = new ExtendedModelMap();
+
 	@Test
-	public void testShowNewEvent() throws Exception{
+	public void testShowNewEvent() throws Exception {
 		EventController eventController = new EventController();
 		ArrayList<Event> list = new ArrayList<Event>();
 		list.add(new Event());
-		EventsService es = mock(EventsService.class);
-		when(es.getAllEvents()).thenReturn(list);
-		eventController.setEventsService(es);
-		assertEquals("group", eventController.showNewEvent(model, "Nazwa grupy"));
+		Principal principal = new Principal() {
+
+			public String getName() {
+				// TODO Auto-generated method stub
+				return "username";
+			}
+		};
+		UsersService us = mock(UsersService.class);
+		when(us.getEvents("username", "Nazwa grupy")).thenReturn(list);
+		eventController.setUsersService(us);
+		assertEquals("group", eventController.showNewEvent(model, "Nazwa grupy", principal));
+		assertEquals("group", eventController.showNewEvent(model, "Nazwa grupy", null));
 	}
-	
+
 	@Test
-	public void testCreateNewEvent() throws Exception{
+	public void testCreateNewEvent() throws Exception {
 		EventController eventController = new EventController();
 		Event event = new Event();
 		Group group = new Group();
@@ -43,7 +53,7 @@ public class EventControllerTest {
 		GroupsService gs = mock(GroupsService.class);
 		UsersService us = mock(UsersService.class);
 		Principal principal = new Principal() {
-			
+
 			public String getName() {
 				// TODO Auto-generated method stub
 				return "username";
@@ -52,17 +62,17 @@ public class EventControllerTest {
 		eventController.setEventsService(es);
 		eventController.setGroupsService(gs);
 		eventController.setUsersService(us);
-		
+
 		ArrayList<Event> list = new ArrayList<Event>();
 		list.add(new Event());
-		
+
 		when(es.getAllEvents()).thenReturn(list);
 		when(gs.getGroupByName("Nazwa Grupy")).thenReturn(group);
 		when(us.getUserByName("username")).thenReturn(user);
 		Mockito.doNothing().when(es).create(event);
-		
+
 		assertEquals("redirect:group", eventController.createNewEvent(event, "Nazwa Grupy", principal));
 		assertEquals("redirect:group", eventController.createNewEvent(event, "Nazwa Grupy", null));
 	}
-		
+
 }

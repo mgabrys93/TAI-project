@@ -37,7 +37,7 @@ public class CommentControllerTest {
 		commentController.setEventsService(eventsService);
 		
 		when(eventsService.getEventById(Long.valueOf("12345"))).thenReturn(event);
-		when(commentsService.getAllComments()).thenReturn(comments);
+		when(commentsService.getAllComments(Long.valueOf("12345"))).thenReturn(comments);
 		
 
 		assertEquals("event", commentController.showComment(model, "12345"));
